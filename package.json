@@ -1,0 +1,21 @@
+{
+  "name": "nodewap",
+  "version": "1.0.0",
+  "description": "wap learning portal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "karimul",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.9",
+    "nodemailer": "^6.6.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0"
+  }
+}
