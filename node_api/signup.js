@@ -1,4 +1,5 @@
 
+const { error } = require("console");
 const database = require("./db");
 const bcrypt = require("bcrypt");
 
@@ -16,7 +17,6 @@ request.on("end",()=>{
 const find_res =  database.find(query,"users");
 find_res
 .then((success_res)=>{
-//console.log(success_res);
 send_res(response,success_res.status_code,success_res);
 })
 .catch((error_res)=>{
