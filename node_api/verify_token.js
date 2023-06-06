@@ -9,36 +9,46 @@ exports.result = (request,response)=>{
 
     request.on("end",()=>{
         const post = query.parse(form_data);
-        console.log(post);
         if(post.token && post.token !="")
         {
         const secret_id = post.secretId;
        const find_res =  database.find_by_id(secret_id,"jwt_secret");
        find_res.then((success_res)=>{
-           const secret = success_res.data[0].secret;
-           //console.log(success_res);
+        const secret = success_res.data[0].secret;
         //verify the token
     jwt.verify(post.token,secret,(error,success)=>{
         if(success)
         {
-            if(post.verify)
+            if(post.token)
             {
-                const id = post.verify;
+                const userData = JSON.parse(atob(post.token.split(".")[1]));
+                const id = userData.data._id;
+    
                 const form_data  = {
                     $set : {                        
                      email_verified : true
                     }
                 };
 
-                database.updateById(id,form_data,"users");
-
+          const check_update =   database.updateById(id,form_data,"users");
+          check_update.then((data_res)=>{
+           if(data_res.modifiedCount){
+            console.log(data_res);
+            const message = JSON.stringify({
+                isVerified : true,
+                message : "Token  verified !"
+            });
+            send_response(response,200,message);
+           }else{
+            console.log("lari");
+            const message = JSON.stringify({
+                isVerified : true,
+                message : "Token  verified !"
+            });
+            send_response(response,200,message);
+           }
+          });
             }
-       const message = JSON.stringify({
-        isVerified : true,
-        message : "Token  verified !"
-    });
-
-    send_response(response,200,message);
         }else
         {
             const message = JSON.stringify({
@@ -49,7 +59,8 @@ exports.result = (request,response)=>{
         }
     });
        }).catch((error_res)=>{
-           console.log(error_res);
+           console.log(error_res.message);
+           send_response(response,error_res.status_code,error_res.message);
        });
         }
         else

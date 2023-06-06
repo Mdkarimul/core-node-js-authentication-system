@@ -31,7 +31,7 @@ exports.result =(request,response)=>{
               isVerified : false
           },"jwt_secret");
           insert_res.then((success_res)=>{
-              const secret_id = success_res.data.insertedId;
+              const secret_id = success_res.data._id.toString();
               const token =  jwt.sign({
                 iss : full_url,
                 data : userInfo.data[0]
@@ -54,7 +54,6 @@ exports.result =(request,response)=>{
          }else
          {
              //login failed !
-             console.log("wrong password !");
              const message = JSON.stringify({
                  isLoged : false,
                 message : "authentication failed !"
@@ -64,7 +63,6 @@ exports.result =(request,response)=>{
      });
    })
    .catch((error_res)=>{
-  //console.log(error_res);
   const message = JSON.stringify({
       isLoged : false,
       message : "User not found !"

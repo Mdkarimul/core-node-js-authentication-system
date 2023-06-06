@@ -10,22 +10,18 @@ const verify_token = ()=>{
     const data = location.href.split("?");
     const ajax = new XMLHttpRequest();
     ajax.open("POST","http://localhost:8080/api/verifyToken");
-    console.log(data);
     ajax.send(data[1]);
 
     //get response
     ajax.onload = ()=>{
       const response =   JSON.parse(ajax.response);
-      console.log("response");
       if(response.isVerified)
       {
-   
     const user = getUserInfo();
     sessionStorage.setItem("username",user.data.email);
-    //console.log(user);
-    console.log(user);
-    if(user.email_verified)
+    if(user.data.email_verified)
     {
+      alert("jhgkjhg");
      //email id already verified !
      $(".loader").addClass("d-none");
      $(".profile-page").removeClass("d-none");
@@ -48,6 +44,7 @@ const verify_token = ()=>{
       }
       else
       {
+        alert();
           localStorage.removeItem("__token");
           localStorage.removeItem("__secret_id")
           window.location = "http://localhost:8080";
@@ -59,7 +56,6 @@ const verify_token = ()=>{
 const getUserInfo = ()=>{
  const token =  localStorage.getItem("__token");
 const user =  JSON.parse(atob(token.split(".")[1]));
-console.log(user);
 return user;
 }
 
@@ -83,7 +79,6 @@ const logout = ()=>{
 
       //redirect 
       window.location = "http://localhost:8080";
-
   }
 }
 

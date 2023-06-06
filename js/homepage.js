@@ -84,14 +84,12 @@ ajax.onload = ()=>{
   //hide loader
   $(".loader").addClass("d-none");
   const response = JSON.parse(ajax.response);
+  console.log(response);
   if(response.isLoged)
 {
-    console.log(response.token);
-    //login success
   const is_verified =   verifyToken(response.token,api_url);
   if(is_verified)
   {
-      alert("Verified !");
       //store verified token in localstorage
       localStorage.setItem("__token",response.token);
       localStorage.setItem("__secret_id",response.secret_id);
