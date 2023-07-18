@@ -5,6 +5,7 @@ const login = require("./node_api/login");
 const verify_token = require("./node_api/verify_token");
 const sendMail = require("./node_api/send_mail");
 const { sign } = require("crypto");
+
 const route = (path,response,status_code,type)=>{
     fs.readFile(path,(error,data)=>{
      if(data)

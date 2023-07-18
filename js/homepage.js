@@ -69,6 +69,7 @@ const remember_me = ()=>{
 
 const login_request = (user)=>{
 const api_url = "http://localhost:8080/api/login";
+console.log(api_url);
 const ajax = new XMLHttpRequest();
 ajax.open("POST",api_url,true);
 ajax.send(user);

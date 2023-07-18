@@ -5,7 +5,6 @@ const crypto = require("crypto");
 exports.result =(request,response)=>{
     let form_data = "";
     const full_url = request.headers.referer+request.url.slice(1);
-    console.log(full_url);
     request.on("data",(chunks)=>{
   form_data += chunks.toString();
     });
@@ -44,7 +43,6 @@ exports.result =(request,response)=>{
             });
             sendResponse(response,200,message);
           }).catch((error_res)=>{
-         console.log(error_res);
          const message = JSON.stringify({
             isLoged : false,
            message : "authentication failed !"

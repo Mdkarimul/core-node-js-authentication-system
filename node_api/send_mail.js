@@ -26,7 +26,6 @@ exports.result = (request,response)=>{
         }
     },secret,{expiresIn:900});
     const link = `http://localhost:8080/profile?token=${token}&secretId=${secret_id}&verify=${receipt.id}`;
-      console.log(link); 
       console.log(receipt.id);
       const auth = mail.createTransport({
         service : "gmail",

@@ -22,6 +22,7 @@ exports.result = (request,response)=>{
             if(post.token)
             {
                 const userData = JSON.parse(atob(post.token.split(".")[1]));
+                console.log(userData.data.email_verified);
                 const id = userData.data._id;
     
                 const form_data  = {
@@ -32,21 +33,13 @@ exports.result = (request,response)=>{
 
           const check_update =   database.updateById(id,form_data,"users");
           check_update.then((data_res)=>{
-           if(data_res.modifiedCount){
-            console.log(data_res);
+        //    if(data_res.modifiedCount){
             const message = JSON.stringify({
                 isVerified : true,
                 message : "Token  verified !"
             });
             send_response(response,200,message);
-           }else{
-            console.log("lari");
-            const message = JSON.stringify({
-                isVerified : true,
-                message : "Token  verified !"
-            });
-            send_response(response,200,message);
-           }
+           
           });
             }
         }else
@@ -59,7 +52,7 @@ exports.result = (request,response)=>{
         }
     });
        }).catch((error_res)=>{
-           console.log(error_res.message);
+           
            send_response(response,error_res.status_code,error_res.message);
        });
         }
@@ -72,7 +65,9 @@ exports.result = (request,response)=>{
             send_response(response,401,message);
         }
     });
-   const  send_response = (response,status_code,message)=>{
+
+
+const  send_response = (response,status_code,message)=>{
   response.writeHead(status_code,{
       "Content-Type" : "application/json"
   });

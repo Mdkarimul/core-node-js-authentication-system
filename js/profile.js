@@ -11,23 +11,26 @@ const verify_token = ()=>{
     const ajax = new XMLHttpRequest();
     ajax.open("POST","http://localhost:8080/api/verifyToken");
     ajax.send(data[1]);
-
     //get response
     ajax.onload = ()=>{
       const response =   JSON.parse(ajax.response);
+      console.log(response.token);
+      sessionStorage.setItem("username",user.data.email);
       if(response.isVerified)
       {
     const user = getUserInfo();
+    console.log(user);
     sessionStorage.setItem("username",user.data.email);
     if(user.data.email_verified)
     {
-      alert("jhgkjhg");
+      alert("v");
      //email id already verified !
      $(".loader").addClass("d-none");
      $(".profile-page").removeClass("d-none");
     }
     else
     {
+      alert("not");
     //email id not verified ! send verification code
     $(".loader").addClass("d-none");
     $(".profile-page").addClass("d-none");
@@ -44,7 +47,6 @@ const verify_token = ()=>{
       }
       else
       {
-        alert();
           localStorage.removeItem("__token");
           localStorage.removeItem("__secret_id")
           window.location = "http://localhost:8080";
@@ -89,7 +91,9 @@ const verifyNown = ()=>{
      const email_server = email.split("@")[1];
      window.close();
      verify_token();
+     alert(email_server);
      window.location = `https://${email_server}`;
+    // https://mail.google.com/mail/u/0/#inbox
   }
 }
 
