@@ -26,6 +26,9 @@ const route = (path,response,status_code,type)=>{
      }
     });
 }
+
+
+
 const server = http.createServer((request,response)=>{
     //--html page routing ! -->
     if(request.url=="/")
